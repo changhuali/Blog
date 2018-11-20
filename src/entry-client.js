@@ -1,3 +1,5 @@
+// es6 shim
+import 'babel-polyfill';
 import { createApp } from './app';
 
 const { app, store } = createApp();
