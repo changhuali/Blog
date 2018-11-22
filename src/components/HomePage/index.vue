@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <div class="username">{{user.username}}</div>
-    <span>{{user.sex}}</span>
+  <div class="main container">
+    welcome
   </div>
 </template>
 
 <script>
   import { mapState, mapActions, mapMutations } from 'vuex';
+
   export default {
     computed: {
       ...mapState('user', {
@@ -26,3 +26,5 @@
     },
   };
 </script>
+
+<style src="./index.less"></style>

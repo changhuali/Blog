@@ -40,7 +40,7 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.css$/,
+        test: /\.(css|less)$/,
         loader: [
           'vue-style-loader',
           'css-loader',
