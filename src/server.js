@@ -13,24 +13,12 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 // Log req info
 app.use(logReqInfo);
 
-const resError = (res, err) => {
-  console.log('---server-side render error'.red, err);
-  if (err.code === 404) {
-    res.status(404).end('Page not found');
-  } else {
-    res.status(500).end('Internal Server Error');
-  }
-}
-
-let renderer;
-
-// This callback func will excute while webpack build
-const getRenderer = result => renderer = result;
-
+// Get createRenderer func by env
+let createRenderer;
 if (__DEV__) {
-  createRenderer_dev(app, getRenderer);
+  createRenderer = createRenderer_dev(app);
 } else {
-  createRenderer_prod(getRenderer);
+  createRenderer = createRenderer_prod();
 }
 
 app.get('*', (req, res) => {
@@ -38,11 +26,22 @@ app.get('*', (req, res) => {
     url: req.url,
     title: '我的博客',
   };
-  renderer.renderToString(context)
-    .then(html => {
-      res.end(html);
-    }).catch(err => {
-      resError(res, err);
+  createRenderer()
+    .then(renderer => {
+      renderer.renderToString(context)
+        .then(html => {
+          res.end(html);
+        })
+        .catch((err) => {
+          if (err.code === 404) {
+            res.status(404).end('Page not found');
+          } else {
+            res.status(500).end('Internal Server Error');
+          }
+        });
+    })
+    .catch(err => {
+      res.status(500).end('Internal Server Error');
     });
 });
 

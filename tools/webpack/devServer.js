@@ -41,10 +41,14 @@ const buildClientApp = (app, returnManifest) => {
 }
 
 // bundle for server-render
-const buildServerApp = (returnBundle) => {
+const buildServerApp = (setRenderer, returnBundle) => {
   const compiler = webpack(serverConfig);
   const mfs = new MemoryFS();
   compiler.outputFileSystem = mfs;
+  // reset renderer before each rebuild
+  compiler.hooks.beforeCompile.tap('extract_client_manifest', () => {
+    setRenderer(null);
+  });
   compiler.watch({}, err => {
     if (err) throw err;
     const newBundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'));
@@ -53,35 +57,51 @@ const buildServerApp = (returnBundle) => {
 }
 
 // create renderer for dev env
-export const createRenderer_dev = (app, returnRenderer) => {
+export const createRenderer_dev = (app, fallbackFn) => {
   let bundle;
   let bundleIsReady;
   let clientManifest;
   let clientManifestIsReady;
+  let renderer;
+  let resolveRenderer = null;
+  const updateRenderer = () => {
+    if (bundleIsReady && clientManifestIsReady) {
+      renderer = createRenderer(bundle, clientManifest)
+      if (resolveRenderer) {
+        resolveRenderer(renderer);
+        resolveRenderer = null;
+      }
+      bundleIsReady = false;
+      clientManifestIsReady = false;
+    }
+  };
+  const setRenderer = (val) => {
+    renderer = val;
+  }
   buildClientApp(app, newManifest => {
     clientManifest = newManifest;
     clientManifestIsReady = true;
     updateRenderer();
   });
-  buildServerApp(newBundle => {
+  buildServerApp(setRenderer, newBundle => {
     bundle = newBundle;
     bundleIsReady = true;
     updateRenderer();
   });
-  const updateRenderer = () => {
-    if (bundleIsReady && clientManifestIsReady) {
-      const renderer = createRenderer(bundle, clientManifest);
-      returnRenderer(renderer);
-      bundleIsReady = false;
-      clientManifestIsReady = false;
+  return () => new Promise((resolve) => {
+    if (renderer) {
+      resolve(renderer);
+    } else {
+      console.info('[info] wait until bundle finished\n'.yellow);
+      resolveRenderer = resolve;
     }
-  }
+  });
 }
 
 // create renderer for prod env
-export const createRenderer_prod = (returnRenderer) => {
+export const createRenderer_prod = () => {
   const bundle = require(bundlePath);
   const clientManifest = require(clientManifestPath);
   const renderer = createRenderer(bundle, clientManifest);
-  returnRenderer(renderer);
+  return () => Promise.resolve(renderer);
 }
