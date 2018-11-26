@@ -1,5 +1,5 @@
-const HomePage = () => import(/* webpackChunkName: "homepage" */ 'components/HomePage');
+const Homepage = () => import(/* webpackChunkName: "homepage" */ 'components/Homepage');
 
 export default [
-  { path: '/', component: HomePage },
+  { path: '/', component: Homepage },
 ];

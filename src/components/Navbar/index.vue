@@ -1,8 +1,16 @@
 <template>
   <div class="header">
-    <nav class="container">
-      <a v-for="navInfo in navbar.navConfig" :href="navInfo.url">{{navInfo.label}}</a>
-    </nav>
+    <div class="container header-center">
+      <a class="app-logo">Li blog</a>
+      <nav>
+        <a
+          v-for="navInfo in navbar.navConfig"
+          :href="navInfo.url"
+        >
+          {{navInfo.label}}
+        </a>
+      </nav>
+    </div>
   </div>
 </template>
 

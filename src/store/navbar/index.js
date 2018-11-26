@@ -4,8 +4,12 @@ export default {
   state: {
     navConfig: [
       {
-        label: '个人日记',
-        url: '/diary',
+        label: '日记',
+        url: '/diaries',
+      },
+      {
+        label: '书橱',
+        url: '/books',
       },
     ],
   },
