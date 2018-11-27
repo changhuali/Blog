@@ -1,15 +1,18 @@
 <template>
   <div class="aside-box">
     <AboutMe />
+    <TechnologyGraph />
   </div>
 </template>
 
 <script>
-  import AboutMe from 'components/global/AboutMe';
+  import AboutMe from './AboutMe';
+  import TechnologyGraph from './TechnologyGraph';
 
   export default {
     components: {
       AboutMe,
+      TechnologyGraph,
     },
   };
 </script>

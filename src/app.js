@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App';
+import App from 'components/App';
 import { createRouter } from './router';
 import { createStore } from './store';
 import { sync } from 'vuex-router-sync';

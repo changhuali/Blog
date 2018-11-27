@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import Navbar from 'components/Navbar';
+  import Navbar from './Navbar';
   
   export default {
     components: {
@@ -15,5 +15,5 @@
   };
 </script>
 
-<style src="../public/css/reset.css"></style>
-<style src="../public/css/common.css"></style>
+<style src="../../../public/css/reset.css"></style>
+<style src="../../../public/css/common.css"></style>
