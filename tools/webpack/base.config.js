@@ -47,7 +47,11 @@ module.exports = {
           'postcss-loader',
           'less-loader',
         ],
-      }
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/i,
+        loader: 'url-loader'
+      },
     ],
   },
   resolve: {

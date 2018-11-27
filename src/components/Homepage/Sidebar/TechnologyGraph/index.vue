@@ -9,22 +9,34 @@
 
 <script>
   import * as d3 from 'd3';
-
+  import htmlIcon from 'img/technology-icon/html5-css3.png';
+  import jsIcon from 'img/technology-icon/javascript.png';
+  import reactIcon from 'img/technology-icon/react.png';
+  import jqueyIcon from 'img/technology-icon/jquery.png';
+  import gulpIcon from 'img/technology-icon/gulp.png';
+  import bootstrapIcon from 'img/technology-icon/bootstrap.svg';
+  import expressjsIcon from 'img/technology-icon/expressjs.png';
+  import nodejsIcon from 'img/technology-icon/nodejs.svg';
+  import reduxIcon from 'img/technology-icon/redux.svg';
+  import webpackIcon from 'img/technology-icon/webpack.svg';
+  
   export default {
     mounted: function() {
       const { svgDom, svgWidth, svgHeight } = this.initSvg('graphBox');
       const svg = d3.select(svgDom);
 
       const simulation = d3.forceSimulation(this.technologies)
-        .force('charge', d3.forceManyBody().strength(-30).distanceMax(50))
+        .force('charge', d3.forceManyBody().strength(-25).distanceMax(40))
         .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
         .on('tick', () => {
           circle
             .attr('cx', d => d.x)
             .attr('cy', d => d.y);
+          image
+            .attr('x', d => d.x - d.value * 2 / 2)
+            .attr('y', d => d.y - d.value * 2 / 2);
         });
-      const nodes = simulation
-        .nodes();
+      const nodes = simulation.nodes();
 
       const scaleColor = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -51,52 +63,90 @@
         );
       const circle = nodeG
         .append('circle')
-        .attr('cx', d => {
-          return d.x;
-        })
-        .attr('cy', d => {
-          return d.y;
-        })
-        .attr('r', d => d.value / 5)
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
+        .attr('r', d => d.value * 2)
         .attr('fill', d => scaleColor(d.category));
+      const image = nodeG
+        .append('image')
+        .attr('xlink:href', d => d.icon)
+        .attr('x', d => d.x - d.value * 2 / 2)
+        .attr('y', d => d.y- d.value * 2 / 2)
+        .attr('width', d => d.value * 2)
+        .attr('height', d => d.value * 2);
     },
     data: function() {
       return {
         technologies: [
           {
-            name: 'html',
+            name: 'html5&css3',
             category: 'language',
-            icon: '',
+            icon: htmlIcon,
             desc: '',
-            value: 100,
+            value: 10,
           },
           {
             name: 'javascript',
             category: 'language',
-            icon: '',
+            icon: jsIcon,
             desc: '',
-            value: 100,
-          },
-          {
-            name: 'css',
-            category: 'language',
-            icon: '',
-            desc: '',
-            value: 100,
+            value: 10,
           },
           {
             name: 'react',
             category: 'library',
-            icon: '',
+            icon: reactIcon,
             desc: '',
-            value: 80,
+            value: 8,
           },
           {
-            name: 'vue',
+            name: 'jquery',
             category: 'library',
-            icon: '',
+            icon: jqueyIcon,
             desc: '',
-            value: 80,
+            value: 8,
+          },
+          {
+            name: 'gulp',
+            category: 'workflow',
+            icon: gulpIcon,
+            desc: '',
+            value: 8,
+          },
+          {
+            name: 'bootstrap',
+            category: 'library',
+            icon: bootstrapIcon,
+            desc: '',
+            value: 8,
+          },
+          {
+            name: 'expressjs',
+            category: 'framework',
+            icon: expressjsIcon,
+            desc: '',
+            value: 8,
+          },
+          {
+            name: 'nodejs',
+            category: 'backend',
+            icon: nodejsIcon,
+            desc: '',
+            value: 8,
+          },
+          {
+            name: 'redux',
+            category: 'library plugin',
+            icon: reduxIcon,
+            desc: '',
+            value: 8,
+          },
+          {
+            name: 'webpack',
+            category: 'workflow',
+            icon: webpackIcon,
+            desc: '',
+            value: 8,
           },
         ],
       }
