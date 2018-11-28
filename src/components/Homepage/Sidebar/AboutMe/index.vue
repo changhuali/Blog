@@ -2,7 +2,7 @@
   <div class="box">
     <div class="title">About me</div>
     <div class="clearfix content">
-      <img />
+      <img :src="headImg" />
       <p class="desc">
         Here is something about me!
       </p>
@@ -11,7 +11,15 @@
 </template>
 
 <script>
-  export default {};
+  import headImg from 'img/about-me/head.jpg';
+
+  export default {
+    data: function() {
+      return {
+        headImg,
+      };
+    }
+  };
 </script>
 
 <style src="./index.less" scoped></style>

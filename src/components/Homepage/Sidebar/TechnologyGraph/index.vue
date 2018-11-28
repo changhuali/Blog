@@ -12,12 +12,13 @@
   import htmlIcon from 'img/technology-icon/html5-css3.png';
   import jsIcon from 'img/technology-icon/javascript.png';
   import reactIcon from 'img/technology-icon/react.png';
+  import reduxIcon from 'img/technology-icon/redux.svg';
+  import vueIcon from 'img/technology-icon/vue.png';
   import jqueyIcon from 'img/technology-icon/jquery.png';
   import gulpIcon from 'img/technology-icon/gulp.png';
   import bootstrapIcon from 'img/technology-icon/bootstrap.svg';
   import expressjsIcon from 'img/technology-icon/expressjs.png';
   import nodejsIcon from 'img/technology-icon/nodejs.svg';
-  import reduxIcon from 'img/technology-icon/redux.svg';
   import webpackIcon from 'img/technology-icon/webpack.svg';
   
   export default {
@@ -26,15 +27,15 @@
       const svg = d3.select(svgDom);
 
       const simulation = d3.forceSimulation(this.technologies)
-        .force('charge', d3.forceManyBody().strength(-25).distanceMax(40))
+        .force('charge', d3.forceManyBody().strength(-20).distanceMax(40))
         .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
         .on('tick', () => {
           circle
             .attr('cx', d => d.x)
             .attr('cy', d => d.y);
           image
-            .attr('x', d => d.x - d.value * 2 / 2)
-            .attr('y', d => d.y - d.value * 2 / 2);
+            .attr('x', d => d.x - d.value * 2.5 / 2)
+            .attr('y', d => d.y - d.value * 2.5 / 2);
         });
       const nodes = simulation.nodes();
 
@@ -70,10 +71,10 @@
       const image = nodeG
         .append('image')
         .attr('xlink:href', d => d.icon)
-        .attr('x', d => d.x - d.value * 2 / 2)
-        .attr('y', d => d.y- d.value * 2 / 2)
-        .attr('width', d => d.value * 2)
-        .attr('height', d => d.value * 2);
+        .attr('x', d => d.x - d.value * 2.5 / 2)
+        .attr('y', d => d.y- d.value * 2.5 / 2)
+        .attr('width', d => d.value * 2.5)
+        .attr('height', d => d.value * 2.5);
     },
     data: function() {
       return {
@@ -97,56 +98,63 @@
             category: 'library',
             icon: reactIcon,
             desc: '',
-            value: 8,
-          },
-          {
-            name: 'jquery',
-            category: 'library',
-            icon: jqueyIcon,
-            desc: '',
-            value: 8,
-          },
-          {
-            name: 'gulp',
-            category: 'workflow',
-            icon: gulpIcon,
-            desc: '',
-            value: 8,
-          },
-          {
-            name: 'bootstrap',
-            category: 'library',
-            icon: bootstrapIcon,
-            desc: '',
-            value: 8,
-          },
-          {
-            name: 'expressjs',
-            category: 'framework',
-            icon: expressjsIcon,
-            desc: '',
-            value: 8,
-          },
-          {
-            name: 'nodejs',
-            category: 'backend',
-            icon: nodejsIcon,
-            desc: '',
-            value: 8,
+            value: 10,
           },
           {
             name: 'redux',
             category: 'library plugin',
             icon: reduxIcon,
             desc: '',
-            value: 8,
+            value: 10,
+          },
+          {
+            name: 'vue',
+            category: 'library',
+            icon: vueIcon,
+            desc: '',
+            value: 10,
+          },
+          {
+            name: 'jquery',
+            category: 'library',
+            icon: jqueyIcon,
+            desc: '',
+            value: 10,
+          },
+          {
+            name: 'bootstrap',
+            category: 'library',
+            icon: bootstrapIcon,
+            desc: '',
+            value: 10,
+          },
+          {
+            name: 'expressjs',
+            category: 'framework',
+            icon: expressjsIcon,
+            desc: '',
+            value: 10,
+          },
+          {
+            name: 'nodejs',
+            category: 'backend',
+            icon: nodejsIcon,
+            desc: '',
+            value: 10,
           },
           {
             name: 'webpack',
             category: 'workflow',
             icon: webpackIcon,
             desc: '',
-            value: 8,
+            value: 10,
+          },
+          {
+            name: 'gulp',
+            category: 'workflow',
+            icon: gulpIcon,
+            desc: '',
+            value: 10,
           },
         ],
       }
