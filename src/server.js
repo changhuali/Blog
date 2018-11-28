@@ -24,7 +24,7 @@ if (__DEV__) {
 app.get('*', (req, res) => {
   const context = {
     url: req.url,
-    title: '我的博客',
+    title: 'Li blog',
   };
   createRenderer()
     .then(renderer => {

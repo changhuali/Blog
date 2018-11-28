@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="title">Technology graph</div>
+    <div class="title">技术栈</div>
     <div ref="graphBox" class="graph-box">
       <!-- here is svg element -->
     </div>  

@@ -1,11 +1,14 @@
 <template>
   <div class="box">
-    <div class="title">About me</div>
+    <div class="title">个人信息</div>
     <div class="clearfix content">
-      <img :src="headImg" />
-      <p class="desc">
-        Here is something about me!
-      </p>
+      <img class="headImg" :src="headImg" />
+      <div class="desc">
+        昵称：饭饭<br />
+        职业：前端开发者<br />
+        <span class="git-link"></span>：<a href="https://github.com/changhuali" target="_blank">github</a><br />
+        爱好：dnfer<br />
+      </div>
     </div>  
   </div>
 </template>

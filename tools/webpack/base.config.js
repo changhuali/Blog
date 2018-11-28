@@ -50,16 +50,23 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        loader: 'url-loader'
+        loader: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024 * 8
+            }
+          }
+        ]
       },
     ],
   },
   resolve: {
     modules: [
+      path.resolve(__dirname, '../../src/'),
       'node_modules',
-      path.resolve(__dirname, '../../src'),
     ],
-    extensions: ['.js', '.vue', '.css', '.less'],
+    extensions: ['.js', '.vue', '.json'],
   },
   plugins: [
     new VueLoaderPlugin(),
