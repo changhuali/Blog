@@ -8,10 +8,10 @@ const getEntry = () => {
   if (__DEV__) {
     return [
       'webpack-hot-middleware/client',
-      path.resolve(__dirname, '../../src/entry-client.js')
+      path.resolve(process.cwd(), 'src/entry-client.js')
     ];
   }
-  return [path.resolve(__dirname, '../../src/entry-client.js')];
+  return [path.resolve(process.cwd(), 'src/entry-client.js')];
 }
 
 const getPlugin = () => {

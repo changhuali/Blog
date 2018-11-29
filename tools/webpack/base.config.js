@@ -5,7 +5,7 @@ global.__DEV__ = process.env.NODE_ENV !== 'production';
 
 const getOutput = () => {
   return {
-    path: path.resolve(__dirname, '../../dist/assets'),
+    path: path.resolve(process.cwd(), 'dist/assets'),
     publicPath: '/assets/',
     filename: '[name].js',
   };
@@ -15,24 +15,20 @@ const webpackMode = __DEV__ ? 'development' : 'production';
 
 module.exports = {
   mode: webpackMode,
-  output: {
-    path: path.resolve(__dirname, '../../dist/assets'),
-    publicPath: '/assets',
-    filename: '[name].js',
-  },
+  output: getOutput(),
   module: {
     rules: [
       {
         test: /\.vue$/,
         include: [
-          path.resolve(__dirname, '../../src')
+          path.resolve(process.cwd(), 'src')
         ],
         loader: 'vue-loader',
       },
       {
         test: /\.js$/,
         include: [
-          path.resolve(__dirname, '../../src')
+          path.resolve(process.cwd(), 'src')
         ],
         exclude: [
           '/node_modules/',
@@ -63,7 +59,7 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, '../../src/'),
+      path.resolve(process.cwd(), 'src'),
       'node_modules',
     ],
     extensions: ['.js', '.vue', '.json'],
