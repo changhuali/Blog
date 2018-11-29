@@ -6,20 +6,23 @@ import config  from '../config/app.config';
 
 const app = express();
 
-// Proxy static assets to dist dir
-app.use(express.static(path.resolve(__dirname, '../dist')));
-app.use(express.static(path.resolve(__dirname, '../public')));
-
-// Log req info
-app.use(logReqInfo);
-
-// Get createRenderer func by env
+/* 
+* Get createRenderer func by env.
+* It must be implemented as early as possible,
+* otherwise some request for static assets will be process by express.static,
+* but express.static will send assets that in the dist directory instead of in memory.
+*/
 let createRenderer;
 if (__DEV__) {
   createRenderer = createRenderer_dev(app);
 } else {
   createRenderer = createRenderer_prod();
 }
+// Log req info
+app.use(logReqInfo);
+// Proxy static assets to dist dir
+app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 app.get('*', (req, res) => {
   const context = {

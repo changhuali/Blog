@@ -30,12 +30,12 @@ const buildClientApp = (app, returnManifest) => {
     hot: true,
   };
   const devMiddleware = webpackDevMiddleware(compiler, devOption);
-  const msf = devMiddleware.fileSystem;
+  const mfs = devMiddleware.fileSystem;
   const hotMiddleware = webpackHotMiddleware(compiler);
   app.use(devMiddleware);
   app.use(hotMiddleware);
   compiler.hooks.done.tap('extract_client_manifest', () => {
-    const newManifest = JSON.parse(msf.readFileSync(clientManifestPath, 'utf-8'));
+    const newManifest = JSON.parse(mfs.readFileSync(clientManifestPath, 'utf-8'));
     returnManifest(newManifest);
   });
 }
@@ -57,7 +57,7 @@ const buildServerApp = (setRenderer, returnBundle) => {
 }
 
 // create renderer for dev env
-export const createRenderer_dev = (app, fallbackFn) => {
+export const createRenderer_dev = (app) => {
   let bundle;
   let bundleIsReady;
   let clientManifest;
