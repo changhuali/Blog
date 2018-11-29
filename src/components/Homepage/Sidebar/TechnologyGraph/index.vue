@@ -27,8 +27,9 @@
       const svg = d3.select(svgDom);
 
       const simulation = d3.forceSimulation(this.technologies)
-        .force('charge', d3.forceManyBody().strength(-20).distanceMax(40))
+        .force('charge', d3.forceManyBody().strength(20))
         .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
+        .force('collode', d3.forceCollide(20))
         .on('tick', () => {
           circle
             .attr('cx', d => d.x)
