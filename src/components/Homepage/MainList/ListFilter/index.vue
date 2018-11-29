@@ -1,8 +1,7 @@
 <template>
   <div class="box">
-    <span>全部</span>
-    <span>日记</span>
-    <span>分享</span>
+    <span>最新</span>
+    <span>最热</span>
   </div>
 </template>
 

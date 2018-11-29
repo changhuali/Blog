@@ -3,12 +3,13 @@
     <div class="container header-center">
       <a class="app-logo">Li blog</a>
       <nav>
-        <a
+        <router-link
           v-for="navInfo in navbar.navConfig"
-          :href="navInfo.url"
+          active-class="nav-active"
+          :to="navInfo.url"
         >
           {{navInfo.label}}
-        </a>
+        </router-link>
       </nav>
     </div>
   </div>
@@ -16,6 +17,7 @@
 
 <script>
   import { mapState } from 'vuex';
+  
   export default {
     computed: {
       ...mapState('navbar', {

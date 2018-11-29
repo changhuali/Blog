@@ -4,12 +4,20 @@ export default {
   state: {
     navConfig: [
       {
+        label: '首页',
+        url: '/',
+      },
+      {
         label: '日记',
-        url: '/diaries',
+        url: '/diary',
+      },
+      {
+        label: '分享',
+        url: '/share',
       },
       {
         label: '书橱',
-        url: '/books',
+        url: '/book',
       },
     ],
   },
