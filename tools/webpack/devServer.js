@@ -26,7 +26,11 @@ const buildClientApp = (app, returnManifest) => {
   const compiler = webpack(clientConfig);
   const devOption = {
     publicPath: clientConfig.output.publicPath,
-    stats: 'minimal',
+    stats: {
+      colors: true,
+      modules: false,
+    },
+    color: true,
     hot: true,
   };
   const devMiddleware = webpackDevMiddleware(compiler, devOption);

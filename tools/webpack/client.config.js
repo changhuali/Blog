@@ -40,5 +40,25 @@ const getPlugin = () => {
 
 module.exports = merge(baseConfig, {
   entry: getEntry(),
+  optimization: {
+    runtimeChunk: {
+      name: 'manifest',
+    },
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks: 'all',
+          minChunks: 2
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      },
+    },
+  },
   plugins: getPlugin(),
 });
