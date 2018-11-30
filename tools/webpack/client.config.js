@@ -4,23 +4,24 @@ const merge = require('webpack-merge');
 const baseConfig = require('./base.config.js');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const getEntry = () => {
-  if (__DEV__) {
-    return [
-      'webpack-hot-middleware/client',
-      path.resolve(process.cwd(), 'src/entry-client.js')
-    ];
+  if (__IS_DEV_ENV__) {
+    return {
+      whm: 'webpack-hot-middleware/client',
+      app: path.resolve(process.cwd(), 'src/entry-client.js')
+    };
   }
-  return [path.resolve(process.cwd(), 'src/entry-client.js')];
+  return {
+    app: path.resolve(process.cwd(), 'src/entry-client.js'),
+  };
 }
 
 const getPlugin = () => {
   const plugins = [
     new VueSSRClientPlugin(),
   ];
-  if (__DEV__) {
+  if (__IS_DEV_ENV__) {
     plugins.push(
       new webpack.HotModuleReplacementPlugin(),
     );
@@ -32,14 +33,6 @@ const getPlugin = () => {
           root: process.cwd(),
         }
       ),
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          output: {
-            comments: false,
-            beautify: false,
-          },
-        }
-      }),
     );
   }
   return plugins;

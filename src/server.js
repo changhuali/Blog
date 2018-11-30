@@ -13,10 +13,11 @@ const app = express();
 * but express.static will send assets that in the dist directory instead of in memory.
 */
 let createRenderer;
-if (__DEV__) {
-  createRenderer = createRenderer_dev(app);
+let renderer;
+if (__IS_DEV_ENV__) {
+  createRenderer = createRenderer_dev(app, buildRenderer => renderer = buildRenderer);
 } else {
-  createRenderer = createRenderer_prod();
+  renderer = createRenderer_prod();
 }
 // Log req info
 app.use(logReqInfo);
@@ -24,28 +25,36 @@ app.use(logReqInfo);
 app.use(express.static(path.resolve(__dirname, '../dist')));
 app.use(express.static(path.resolve(__dirname, '../public')));
 
-app.get('*', (req, res) => {
+const render = (req, res) => {
   const context = {
     url: req.url,
     title: 'Li blog',
   };
-  createRenderer()
-    .then(renderer => {
-      renderer.renderToString(context)
-        .then(html => {
-          res.end(html);
-        })
-        .catch((err) => {
-          if (err.code === 404) {
-            res.status(404).end('Page not found');
-          } else {
-            res.status(500).end('Internal Server Error');
-          }
-        });
+  renderer.renderToString(context)
+    .then(html => {
+      res.end(html);
     })
-    .catch(err => {
-      res.status(500).end('Internal Server Error');
+    .catch((err) => {
+      if (err.code === 404) {
+        res.status(404).end('Page not found');
+      } else {
+        res.status(500).end('Internal Server Error');
+      }
     });
+}
+
+app.get('*', (req, res) => {
+  if (!__IS_DEV_ENV__) {
+    render(req, res);
+  } else {
+    createRenderer()
+      .then(() => {
+        render(req, res);
+      })
+      .catch(err => {
+        res.status(500).end('Internal Server Error');
+      });
+  }
 });
 
 app.listen(9000, () => {

@@ -1,7 +1,8 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-global.__DEV__ = process.env.NODE_ENV !== 'production';
+global.__IS_DEV_ENV__ = process.env.NODE_ENV !== 'production';
 
 const getOutput = () => {
   return {
@@ -11,7 +12,7 @@ const getOutput = () => {
   };
 }
 
-const webpackMode = __DEV__ ? 'development' : 'production';
+const webpackMode = __IS_DEV_ENV__ ? 'development' : 'production';
 
 module.exports = {
   mode: webpackMode,
@@ -36,13 +37,13 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.(css|less)$/,
+        test: /\.(c|le)ss$/,
         loader: [
           'vue-style-loader',
           'css-loader',
           'postcss-loader',
           'less-loader',
-        ],
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
@@ -66,5 +67,13 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        output: {
+          comments: false,
+          beautify: false,
+        },
+      }
+    }),
   ],
 };

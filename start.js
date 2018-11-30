@@ -5,7 +5,6 @@ require('colors');
 // enable es6 in server
 require('babel-register');
 // initial global var
-global.__DEV__ = process.env.NODE_ENV !== 'production';
-global.__SERVER__ = true;
+global.__IS_DEV_ENV__ = process.env.NODE_ENV !== 'production';
 // excute server.js
 require('./src/server');

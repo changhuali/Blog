@@ -11,7 +11,7 @@ import clientConfig from './client.config';
 const bundlePath = path.resolve(process.cwd(), 'dist/assets/vue-ssr-server-bundle.json');
 const clientManifestPath = path.resolve(process.cwd(), 'dist/assets/vue-ssr-client-manifest.json');
 
-const template = fs.readFileSync(path.resolve(process.cwd(), 'template.html'), 'utf-8');
+const template = fs.readFileSync(path.resolve(process.cwd(), 'src/template.html'), 'utf-8');
 
 // create a renderer
 const createRenderer = (bundle, clientManifest) => {
@@ -57,19 +57,20 @@ const buildServerApp = (setRenderer, returnBundle) => {
 }
 
 // create renderer for dev env
-export const createRenderer_dev = (app) => {
+export const createRenderer_dev = (app, returnRenderer) => {
   let bundle;
   let bundleIsReady;
   let clientManifest;
   let clientManifestIsReady;
   let renderer;
-  let resolveRenderer = null;
+  let handleRequest = null;
   const updateRenderer = () => {
     if (bundleIsReady && clientManifestIsReady) {
       renderer = createRenderer(bundle, clientManifest)
-      if (resolveRenderer) {
-        resolveRenderer(renderer);
-        resolveRenderer = null;
+      if (handleRequest) {
+        returnRenderer(renderer);
+        handleRequest();
+        handleRequest = null;
       }
       bundleIsReady = false;
       clientManifestIsReady = false;
@@ -90,10 +91,11 @@ export const createRenderer_dev = (app) => {
   });
   return () => new Promise((resolve) => {
     if (renderer) {
-      resolve(renderer);
+      returnRenderer(renderer);
+      resolve();
     } else {
       console.info('[info] wait until bundle finished\n'.yellow);
-      resolveRenderer = resolve;
+      handleRequest = resolve;
     }
   });
 }
@@ -102,6 +104,5 @@ export const createRenderer_dev = (app) => {
 export const createRenderer_prod = () => {
   const bundle = require(bundlePath);
   const clientManifest = require(clientManifestPath);
-  const renderer = createRenderer(bundle, clientManifest);
-  return () => Promise.resolve(renderer);
+  return createRenderer(bundle, clientManifest);
 }
