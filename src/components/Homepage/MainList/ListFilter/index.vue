@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div :class="$style['list-filter']">
     <span>最新</span>
     <span>最热</span>
   </div>
@@ -11,4 +11,4 @@
   };
 </script>
 
-<style src="./index.less" scoped></style>
+<style src="./index.less" module></style>

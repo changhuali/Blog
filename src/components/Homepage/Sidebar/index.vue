@@ -1,5 +1,5 @@
 <template>
-  <div class="aside-box">
+  <div :class="$style['side-bar']">
     <AboutMe />
     <TechnologyGraph />
   </div>
@@ -17,4 +17,4 @@
   };
 </script>
 
-<style src="./index.less" scoped></style>
+<style src="./index.less" module></style>

@@ -1,13 +1,21 @@
 <template>
   <div id="vue-view">
-    <Navbar></Navbar>
+    <div :class="$style['app-header']">
+      <Navbar></Navbar>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  /* import global css
+  ** Must first than Components for override
+  */
+  import '../../../public/css/reset.css';
+  import '../../../public/css/common.css';
+
   import Navbar from './Navbar';
-  
+
   export default {
     components: {
       Navbar,
@@ -15,5 +23,4 @@
   };
 </script>
 
-<style src="../../../public/css/reset.css"></style>
-<style src="../../../public/css/common.css"></style>
+<style src="./index.less" module></style>

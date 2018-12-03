@@ -1,19 +1,17 @@
 <template>
-  <div class="header">
-    <div class="container header-center">
-      <div ref="logo" class="logo"></div>
-      <nav>
-        <router-link
-          v-for="navInfo in navbar.navConfig"
-          active-class="nav-active"
-          :to="navInfo.url"
-          :key="navInfo.url"
-          exact
-        >
-          {{navInfo.label}}
-        </router-link>
-      </nav>
-    </div>
+  <div class="container" :class="$style['container']">
+    <div ref="logo" :class="$style['logo']"></div>
+    <nav :class="$style['nav']">
+      <router-link
+        v-for="navInfo in navbar.navConfig"
+        :active-class="$style['active']"
+        :to="navInfo.url"
+        :key="navInfo.url"
+        exact
+      >
+        {{navInfo.label}}
+      </router-link>
+    </nav>
   </div>
 </template>
 
@@ -69,4 +67,4 @@
   };
 </script>
 
-<style src="./index.less" scoped></style>
+<style src="./index.less" module></style>

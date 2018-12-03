@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div :class="$style['main-list']">
     <ListFilter />
-    <div class="list-box">
+    <div :class="$style['list-box']">
       <ListItem
         v-for="(dataItem, index) in list"
         :key="index"
@@ -50,4 +50,4 @@
   };
 </script>
 
-<style src="./index.less" scoped></style>
+<style src="./index.less" module></style>

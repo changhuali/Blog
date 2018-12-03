@@ -24,7 +24,7 @@ module.exports = {
         include: [
           path.resolve(process.cwd(), 'src')
         ],
-        loader: 'vue-loader',
+        use: 'vue-loader',
       },
       {
         test: /\.js$/,
@@ -34,20 +34,39 @@ module.exports = {
         exclude: [
           '/node_modules/',
         ],
-        loader: 'babel-loader',
+        use: 'babel-loader',
       },
       {
         test: /\.(c|le)ss$/,
-        loader: [
-          'vue-style-loader',
-          'css-loader',
-          'postcss-loader',
-          'less-loader',
+        oneOf: [
+          {
+            resourceQuery: /module/,
+            use: [
+              'vue-style-loader',
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true,
+                  localIdentName: '[local]_[hash:base64:8]',
+                }
+              },
+              'postcss-loader',
+              'less-loader',
+            ]
+          },
+          {
+            use: [
+              'vue-style-loader',
+              'css-loader',
+              'postcss-loader',
+              'less-loader',
+            ]
+          }
         ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/i,
-        loader: [
+        use: [
           {
             loader: 'url-loader',
             options: {

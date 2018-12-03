@@ -1,7 +1,7 @@
 <template>
-  <div class="box">
-    <div class="title">技术栈</div>
-    <div ref="graphBox" class="graph-box">
+  <div :class="$style['technology-graph']">
+    <div :class="$style['title']">技术栈</div>
+    <div ref="graphBox" :class="$style['content']">
       <!-- here is svg element -->
     </div>  
   </div>
@@ -174,4 +174,4 @@
   };
 </script>
 
-<style src="./index.css" scoped></style>
+<style src="./index.css" module></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container main">
+  <div class="container" :class="$style['homepage']">
     <MainList></MainList>
     <Sidebar></Sidebar>
   </div>
@@ -34,4 +34,4 @@
   };
 </script>
 
-<style src="./index.less"></style>
+<style src="./index.less" module></style>

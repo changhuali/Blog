@@ -1,12 +1,12 @@
-.box {
+.technology-graph {
   margin-top: 20px;
   background-color: #ffffff;
-  border: 1px solid #eeeeee;
-}
-.title {
-  padding: 15px 10px;
-  border-bottom: 1px solid #eeeeee;
-}
-.graph-box {
-  height: 200px;
+  border: 1px solid #eeeeee; 
+  .title {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .content {
+    height: 200px;
+  }
 }
