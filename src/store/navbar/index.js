@@ -9,7 +9,7 @@ export default {
       },
       {
         label: '日记',
-        url: '/diary',
+        url: '/diaries',
       },
       {
         label: '分享',
@@ -17,7 +17,7 @@ export default {
       },
       {
         label: '书橱',
-        url: '/book',
+        url: '/books',
       },
     ],
   },
