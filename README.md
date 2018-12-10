@@ -2,13 +2,9 @@
 
 ## background
 1. Too many things about my self to record  
-2. No place to practice front end technologies   
-3. ...
-
-## app function
-1. Could note some dairly thing
-2. Could post practical code with demo
-
+2. No place to practice front end technologies
+4. Want to build a app which looks like a bookcase
+4. ...
 
 ## technology stack
 ***vue+vuex+vue-router+typescript+webpack+babel***   
