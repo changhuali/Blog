@@ -1,9 +1,9 @@
 # blog app
 
 ## background
-1. Too many things about my self to record  
-2. No place to practice front end technologies
-4. Want to build a app which looks like a bookcase
+1. Post some front end practices with demo on web  
+2. Write a dairy
+4. Build a bookcase using canvas
 4. ...
 
 ## technology stack
