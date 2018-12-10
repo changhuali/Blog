@@ -1,15 +1,16 @@
-# 博客系统
+# blog app
 
-## 开发背景
-1. 将工作中很多知识点总结，不负青春。   
-2. 学到的很多知识点可以在这里进行实验和分享，eg. 特效动画，新的js特性   
-3. ...待补充
+## background
+1. Too many things about my self to record  
+2. No place to practice front end technologies   
+3. ...
 
-## 功能需求
-1. ...待补充
+## app function
+1. Could note some dairly thing
+2. Could post practical code with demo
 
 
-## 技术栈
+## technology stack
 ***vue+vuex+vue-router+typescript+webpack+babel***   
-同时采用了首屏服务端渲染增强用户体验（顺便加深对服务端渲染构建过程的了解）
+
 
